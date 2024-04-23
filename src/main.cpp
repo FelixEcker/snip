@@ -48,6 +48,10 @@ int do_show(Snip::SnipStore store, std::vector<std::string> args) {
   Snip::LogHelper::debug(std::format("Showing snip @ \"{}\"!", snip_path));
 
   char *env_snip_pager = std::getenv("SNIP_PAGER");
+  
+  /* ensure that we really have a pager with this one */
+  env_snip_pager = env_snip_pager != NULL ? env_snip_pager : std::getenv("PAGER");
+  
   std::string snip_pager = env_snip_pager != NULL ? env_snip_pager : "more";
   std::string full_cmd = std::format("{} {}", snip_pager, snip_path);
 
