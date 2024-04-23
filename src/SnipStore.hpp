@@ -1,8 +1,8 @@
 #ifndef SNIP_SNIP_STORE_HPP
 #define SNIP_SNIP_STORE_HPP
 
+#include <set>
 #include <string>
-#include <vector>
 
 namespace Snip {
 
@@ -24,7 +24,7 @@ class SnipStore {
   private:
     std::string location;
 
-    std::vector<std::string> snips;
+    std::set<std::string> snips;
 };
 
 } /* namespace Snip */

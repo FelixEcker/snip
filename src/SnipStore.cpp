@@ -49,8 +49,8 @@ SnipStore::SnipStore() {
         return;
       }
 
-      const std::string path = dir_entry.path().string();
-      this->snips.push_back(path);
+      const std::string path = dir_entry.path().filename();
+      this->snips.insert(path);
       LogHelper::debug(std::format("found snip \"{}\"", path));
     }
   );
@@ -59,6 +59,11 @@ SnipStore::SnipStore() {
 bool SnipStore::store(std::string file, std::string name) {
   if (access(file.c_str(), F_OK) == -1) {
     LogHelper::error("provided file does not exist!");
+    return false;
+  }
+
+  if (this->snips.find(name) != this->snips.end()) {
+    LogHelper::error("snip with given name already exists!");
     return false;
   }
 
