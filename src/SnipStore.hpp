@@ -20,6 +20,8 @@ class SnipStore {
 
     bool store(std::string file, std::string name);
 
+    std::string get_snip_path(std::string name);
+
     std::string get_location();
   private:
     std::string location;

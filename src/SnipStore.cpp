@@ -76,6 +76,15 @@ bool SnipStore::store(std::string file, std::string name) {
   return true;
 }
 
+std::string SnipStore::get_snip_path(std::string name) {
+  auto search = this->snips.find(name);
+  if (search != this->snips.end()) {
+    return this->location + *search;
+  }
+
+  return "";
+}
+
 std::string SnipStore::get_location() {
   return this->location;
 }
