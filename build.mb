@@ -45,6 +45,8 @@ sector targets
     list str required_targets 'clean'
 
     list str c_rules 'compile', 'link'
+
+    str exec 'strip --strip-all $(/config/files/release_dir)$(/config/files/binname)'
   end
 end
 
