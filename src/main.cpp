@@ -23,7 +23,7 @@ int do_store(Snip::SnipStore store, std::vector<std::string> args) {
     return 1;
   }
 
-  return 0;
+  return store.store(args[0], args[1]) ? 0 : 1;
 }
 
 int main(int argc, char **argv) {

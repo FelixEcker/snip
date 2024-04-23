@@ -2,6 +2,7 @@
 #define SNIP_SNIP_STORE_HPP
 
 #include <string>
+#include <vector>
 
 namespace Snip {
 
@@ -17,9 +18,13 @@ class SnipStore {
   public:
     SnipStore();
 
+    bool store(std::string file, std::string name);
+
     std::string get_location();
   private:
     std::string location;
+
+    std::vector<std::string> snips;
 };
 
 } /* namespace Snip */
