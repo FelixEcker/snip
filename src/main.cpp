@@ -2,6 +2,7 @@
 #include "SnipStore.hpp"
 
 #include <errno.h>
+#include <filesystem>
 #include <format>
 #include <iostream>
 #include <unistd.h>
@@ -45,9 +46,28 @@ int do_show(Snip::SnipStore store, std::vector<std::string> args) {
 
   char *env_snip_pager = std::getenv("SNIP_PAGER");
   std::string snip_pager = env_snip_pager != NULL ? env_snip_pager : "more";
-  std::string full_cmd = std::format("{} {} ; echo $PAGER", snip_pager, snip_path);
+  std::string full_cmd = std::format("{} {}", snip_pager, snip_path);
 
   return system(full_cmd.data());
+}
+
+int do_get(Snip::SnipStore store, std::vector<std::string> args) {
+  if (args.size() == 0 || args.size() < 2) {
+    Snip::LogHelper::error("snip show: expecting 1 arguments: name OR 2 arguments: name as");
+    Snip::LogHelper::error("See snip --help for further information");
+    return 1;
+  }
+
+  std::string snip_path = store.get_snip_path(args[0]);
+  if (snip_path.empty()) {
+    Snip::LogHelper::error("no such snip!");
+    return 1;
+  }
+
+  if (args.size() == 2) {
+    std::filesystem::copy(snip_path, args[1]);
+    return 0;
+  }
 }
 
 int main(int argc, char **argv) {
@@ -68,6 +88,10 @@ int main(int argc, char **argv) {
 
   if (COMMAND == "show") {
     return do_show(snip_store, args);
+  }
+
+  if (COMMAND == "get") {
+    return do_get(snip_store, args);
   }
 
   Snip::LogHelper::error(std::format("unknown command \"{}\"!", COMMAND));
