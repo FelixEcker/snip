@@ -89,4 +89,8 @@ std::string SnipStore::get_location() {
   return this->location;
 }
 
+std::set<std::string> SnipStore::get_snips() {
+  return this->snips;
+}
+
 } /* namespace Snip::SnipStore */

@@ -23,6 +23,8 @@ class SnipStore {
     std::string get_snip_path(std::string name);
 
     std::string get_location();
+
+    std::set<std::string> get_snips();
   private:
     std::string location;
 
