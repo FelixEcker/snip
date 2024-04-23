@@ -32,6 +32,10 @@ SnipStore::SnipStore() {
   this->location = resolve_path(
       snip_store_env != NULL ? snip_store_env : SNIP_STORE_DEFAULT
     );
+
+  if (this->location.back() != '/') {
+    this->location += '/';
+  }
   
   LogHelper::debug("snipstore @ " + this->location);
 
