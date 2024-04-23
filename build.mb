@@ -8,7 +8,7 @@ sector config
     str binname 'snip'
 
     str src 'src/'
-    list str sources 'main', 'LogHelper'
+    list str sources 'main', 'LogHelper', 'SnipStore'
   end
 
   section mariebuild
