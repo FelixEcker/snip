@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <filesystem>
 #include <format>
+#include <fstream>
 #include <iostream>
 #include <unistd.h>
 #include <vector>
@@ -52,7 +53,7 @@ int do_show(Snip::SnipStore store, std::vector<std::string> args) {
 }
 
 int do_get(Snip::SnipStore store, std::vector<std::string> args) {
-  if (args.size() == 0 || args.size() < 2) {
+  if (args.size() == 0 || args.size() > 2) {
     Snip::LogHelper::error("snip show: expecting 1 arguments: name OR 2 arguments: name as");
     Snip::LogHelper::error("See snip --help for further information");
     return 1;
@@ -68,6 +69,17 @@ int do_get(Snip::SnipStore store, std::vector<std::string> args) {
     std::filesystem::copy(snip_path, args[1]);
     return 0;
   }
+
+  std::ifstream cont(snip_path);
+
+  if (cont.is_open()) {
+    std::cout << cont.rdbuf();
+    return 0;
+  }
+
+  Snip::LogHelper::critical(std::format("couldn't open file \"{}\" for reading!",
+                                        snip_path));
+  return 1;
 }
 
 int main(int argc, char **argv) {
