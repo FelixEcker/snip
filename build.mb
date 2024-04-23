@@ -8,12 +8,12 @@ sector config
     str binname 'snip'
 
     str src 'src/'
-    list str sources 'main'
+    list str sources 'main', 'LogHelper'
   end
 
   section mariebuild
-    str cc 'clang'
-    str cflags ''
+    str cc 'clang++'
+    str cflags '-fno-exceptions -std=c++20 -Wall -Wextra -Werror'
 
     list str targets 'clean', 'debug', 'release'
     str default 'debug'
@@ -30,7 +30,7 @@ sector targets
   end
 
   section debug
-    str target_cflags '-ggdb'
+    str target_cflags '-ggdb -D__SNIP_DEBUG'
     str target_builddir '$(/config/files/debug_dir)'
     str target_objdir '$(/config/files/debug_dir)$(/config/files/obj_dir)'
 
@@ -57,7 +57,7 @@ sector c_rules
 
     str exec '#!/bin/bash
               mkdir -p \$(dirname $(%output%))
-              $(/config/mariebuild/cc) $(%target_cflags%) -c $(%input%) -o $(%output%)'
+              $(/config/mariebuild/cc) $(/config/mariebuild/cflags) $(%target_cflags%) -c $(%input%) -o $(%output%)'
   end
 
   section link
