@@ -67,6 +67,8 @@ bool SnipStore::store(std::string file, std::string name) {
     return false;
   }
 
+  std::filesystem::copy(file, this->location + name);
+
   return true;
 }
 
