@@ -2,7 +2,7 @@ sector config
   section files
     str build_root 'build/'
     str debug_dir '$(/config/files/build_root)debug/'
-    str release_dir '$(/config/files/build_root)debug/'
+    str release_dir '$(/config/files/build_root)release/'
     str obj_dir 'obj/'
 
     str binname 'snip'
@@ -41,6 +41,8 @@ sector targets
     str target_cflags '-Oz'
     str target_builddir '$(/config/files/release_dir)'
     str target_objdir '$(/config/files/release_dir)$(/config/files/obj_dir)'
+    
+    list str required_targets 'clean'
 
     list str c_rules 'compile', 'link'
   end
