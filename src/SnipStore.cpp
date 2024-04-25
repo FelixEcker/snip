@@ -48,7 +48,7 @@ SnipStore::SnipStore() {
   const std::filesystem::path snipstore{this->location};
   std::ranges::for_each(
     std::filesystem::directory_iterator{snipstore},
-    [&, this](const auto& dir_entry) {
+    [&](const auto& dir_entry) {
       if (!dir_entry.is_regular_file()) {
         return;
       }
