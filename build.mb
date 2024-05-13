@@ -75,8 +75,6 @@ sector c_rules
 
     str ldflags ''
 
-    str exec '
-    $(/config/mariebuild/cc) -o $(%output%) $(%input%) $(ldflags)
-      '
+    str exec '$(/config/mariebuild/cc) -o $(%output%) $(%input%) $(ldflags)'
   end
 end
