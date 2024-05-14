@@ -13,7 +13,7 @@ sector config
 
   section mariebuild
     str cc 'clang++'
-    str cflags '-fno-exceptions -std=c++20 -Wall -Wextra'
+    str cflags '-fno-exceptions -std=c++20 -stdlib=libc++ -Wall -Wextra'
 
     list str targets 'clean', 'debug', 'release'
     str default 'debug'
@@ -73,7 +73,7 @@ sector c_rules
     str input_format '$(%target_objdir%)$(%element%).o'
     str output_format '$(%target_builddir%)$(/config/files/binname)'
 
-    str ldflags ''
+    str ldflags '-stdlib=libc++'
 
     str exec '$(/config/mariebuild/cc) -o $(%output%) $(%input%) $(ldflags)'
   end
